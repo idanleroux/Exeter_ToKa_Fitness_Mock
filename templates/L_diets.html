@@ -9,5 +9,81 @@
 </head>
 <body>
     {% include 'navbar.html' %}
+    <div class="diet-container">
+        <h1>Diet & Nutrition advice and planner</h1>
+        <div class="description">
+            <p>
+                Dieting and nutrition is very important when working out or training fitness, it is important to get the right amount of protein and calories.
+            </p>
+            <p>
+                And your diet plays a big role in your energy levels, mood and a good diet helps you get fitter rather than fighting your progress!
+            </p>
+        </div>
+        <form method="POST">
+            <div class="selection-grid">
+                <!-- Calorie selection -->
+                <button type="button" class="option"
+                        data-group="calorie" data-value="high">
+                    High calorie
+                </button>
+                <button type="button" class="option"
+                        data-group="calorie" data-value="low">
+                    Low calorie
+                </button>
+                <!-- Protein selection -->
+                <button type="button" class="option"
+                        data-group="protein" data-value="regular">
+                    Regular protein
+                </button>
+                <button type="button" class="option" data-group="protein" data-value="high">
+                    High protein
+                </button>
+                <!-- Diet selection -->
+                <button type="button" class="option" data-group="diet" data-value="vegan">
+                    Vegan
+                </button>
+                <button type="button" class="option"
+                        data-group="diet" data-value="vegetarian">
+                    Vegetarian
+                </button>
+                <button type="button" class="option"
+                        data-group="diet" data-value="pescetarian">
+                    Pescetarian
+                </button>
+                <button type="button" class="option"
+                        data-group="diet" data-value="omnivore">
+                    Omnivore
+                </button>
+            </div>
+            <input type="hidden" name="calorie" id="calorie">
+            <input type="hidden" name="protein" id="protein">
+            <input type="hidden" name="diet" id="diet">
+            <button type="submit" class="create-button">
+                Create your Diet<br>plan
+            </button>
+        </form>
+        {% if meal_plan %}
+            <div class="meal-plan">
+                {{ meal_plan }}
+            </div>
+        {% endif %}
+    </div>
+    <script>
+        const options = document.querySelectorAll(".option");
+        options.forEach(button => {
+            button.addEventListener("click", function () {
+                const group = this.dataset.group;
+                // Remove selection from other buttons in same group
+                document.querySelectorAll(
+                ".option[data-group='${group}']").forEach(option => {option.classList.remove("selected");
+                });
+                // Select clicked button
+                this.classList.add("selected");
+                // Store selected value
+                document.getElementById(group).value =
+                    this.dataset.value;
+            });
+        });
+    </script>
 </body>
 </html>

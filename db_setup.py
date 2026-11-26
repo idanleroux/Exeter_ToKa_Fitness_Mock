@@ -1,5 +1,5 @@
 import sqlite3
-def db_seed():
+def db_make():
     conn = sqlite3.connect("database.db")
     cursor = conn.cursor()
     # Add users
@@ -30,5 +30,20 @@ def db_seed():
     conn.commit()
     conn.close()
 
+def db_seed():
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    # Add set of test users
+    cursor.execute("""
+    INSERT INTO users (
+        test@test.com,
+        1234,
+        free)
+    """)
+    conn.commit()
+    conn.close()
+
 if __name__ == "__main__":
+    db_make()
     db_seed()
