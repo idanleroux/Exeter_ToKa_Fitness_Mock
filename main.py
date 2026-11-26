@@ -27,6 +27,19 @@ def before_request():
 def index():
     return render_template("index.html")
 
+@app.route("/L_diets")
+def diets():
+    return render_template("diets.html")
+
+@app.route("/navbar")
+def navbar():
+    return render_template("navbar.html")
+
+@app.route("/community")
+def community():
+    return render_template("P_community.html")
+
+"""
 @app.route("/login", methods=["GET", "POST"])
 def login():
     # INTEGRATE YOUR EXISTING LOGIN / PASSWORD VERIFICATION HERE.
@@ -50,6 +63,7 @@ def diets():
 @premium_required
 def community():
     return "Welcome, premium member!"
+"""
 
 if __name__ == "__main__":
     app.run()
