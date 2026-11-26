@@ -83,8 +83,8 @@ def login_required(func):
     def wrapper(*args, **kwargs):
         if not getattr(g, "user", None):
             return redirect(url_for("login"))
-            return func(*args, **kwargs)
-            return wrapper
+        return func(*args, **kwargs)
+    return wrapper
 
 # Require premium membership
 def premium_required(func):

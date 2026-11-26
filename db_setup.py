@@ -4,25 +4,29 @@ def db_seed():
     cursor = conn.cursor()
     # Add users
     cursor.execute("""
-    INSERT INTO users (user_id, email, password, account_type)
-    VALUES (?, ?, ?, ?)
-    """, (1, "admin@example.com", "hashed_password_here",
-    "premium"))
+    CREATE TABLE IF NOT EXISTS users (
+        user_id int PRIMARY KEY,
+        email varchar(64) UNIQUE,
+        password varchar(64) NOT NULL,
+        account_type varchar(64) NOT NULL)
+    """)
 
     # Add community posts
     cursor.execute("""
-    INSERT INTO community_posts
-    (post_title, post_description, post_image)
-    VALUES (?, ?, ?)
-    """, ("Welcome!", "Welcome to the community.", None, 0, "[]",
-    1))
+    CREATE TABLE IF NOT EXISTS community_posts (
+    post_title varchar(64) NOT NULL,
+    post_description varchar(64) NOT NULL,
+    post_image varchar(256) NOT NULL)
+    """)
 
     # Add pt sessions
     cursor.execute("""
-    INSERT INTO pt_sessions
-    (user_id, time, location, activity)
-    VALUES (?, ?, ?, ?)
-    """, (1, "2026-11-23 12:00:00", "Gym one", "Getting started"))
+    CREATE TABLE IF NOT EXISTS pt_sessions
+    (user_id imt PRIMARY KEY,
+    time timestamp NOT NULL,
+    location varchar(64) NOT NULL,
+    activity varchar(64) NOT NULL)
+    """)
     conn.commit()
     conn.close()
 
