@@ -1,49 +1,58 @@
 import sqlite3
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE = os.path.join(BASE_DIR, "database.db")
+
 def db_make():
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
-    # Add users
+
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS users (
-        user_id int PRIMARY KEY,
-        email varchar(64) UNIQUE,
-        password varchar(64) NOT NULL,
-        account_type varchar(64) NOT NULL)
+        CREATE TABLE IF NOT EXISTS users (
+            user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email VARCHAR(64) UNIQUE,
+            password VARCHAR(64) NOT NULL,
+            account_type VARCHAR(64) NOT NULL
+        )
     """)
 
-    # Add community posts
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS community_posts (
-    post_title varchar(64) NOT NULL,
-    post_description varchar(64) NOT NULL,
-    post_image varchar(256) NOT NULL)
+        CREATE TABLE IF NOT EXISTS community_posts (
+            post_title VARCHAR(64) NOT NULL,
+            post_description VARCHAR(64) NOT NULL,
+            post_image VARCHAR(256) NOT NULL
+        )
     """)
 
-    # Add pt sessions
     cursor.execute("""
-    CREATE TABLE IF NOT EXISTS pt_sessions
-    (user_id imt PRIMARY KEY,
-    time timestamp NOT NULL,
-    location varchar(64) NOT NULL,
-    activity varchar(64) NOT NULL)
+        CREATE TABLE IF NOT EXISTS pt_sessions (
+            user_id INTEGER PRIMARY KEY,
+            time TIMESTAMP NOT NULL,
+            location VARCHAR(64) NOT NULL,
+            activity VARCHAR(64) NOT NULL
+        )
     """)
+
     conn.commit()
     conn.close()
 
 def db_seed():
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
 
-    # Add set of test users
     cursor.execute("""
-    INSERT INTO users (
-        test@test.com,
-        1234,
-        free)
-    """)
+                   INSERT
+                   OR IGNORE INTO users (email, password, account_type)
+        VALUES (?, ?, ?)
+                   """, ("test@test.com", "1234", "free"))
+
     conn.commit()
     conn.close()
 
-if __name__ == "__main__":
+def do_both():
     db_make()
     db_seed()
+
+if __name__ == "__main__":
+    do_both()

@@ -11,8 +11,6 @@
     {% include 'navbar.html' %}
     <div class="Login-form">
         <form method="POST">
-            <input type="hidden" name="csrf_token" value="{{
-        csrf_token() }}">
             <input type="text" name="username"
         placeholder="Username" required>
             <input type="password" name="password"
