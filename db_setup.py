@@ -42,10 +42,10 @@ def db_seed():
     cursor = conn.cursor()
 
     cursor.execute("""
-                   INSERT
-                   OR IGNORE INTO users (email, password, account_type)
+        INSERT OR IGNORE INTO users
+        (email, password, account_type)
         VALUES (?, ?, ?)
-                   """, ("test@test.com", "1234", "free"))
+    """, ("test@test.com", "1234", "premium"))
 
     conn.commit()
     conn.close()
