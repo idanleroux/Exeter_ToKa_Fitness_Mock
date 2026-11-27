@@ -94,12 +94,13 @@ def diets():
         protein = request.form.get("protein")
         diet_type = request.form.get("diet")
         if not all([calorie, protein, diet_type]):
-            return "Please select all three options", 400
+            results = "You need to select 3, one protein, one calorie and on food type"
+            return render_template("L_diets.html", results=results)
         code = get_meal_plan(calorie, protein, diet_type)
         results = get_meals(code)
         return render_template("L_diets.html", results=results)
 
-    return render_template("login.html")
+    return render_template("L_diets.html")
 
 # Meal plan function
 def get_meal_plan(calorie, protein, diet):
@@ -139,13 +140,15 @@ def get_meals(code):
     conn = sqlite3.connect(DATABASE)
     conn.row_factory = sqlite3.Row
 
-    rtn = conn.execute("""
-                        SELECT meals
-                        FROM diet
-                        WHERE code = ?
-                        """)
+    row = conn.execute("""
+        SELECT meals
+        FROM diet
+        WHERE code = ?
+    """, (code,)).fetchone()
+
     conn.close()
-    return rtn
+    return row["meals"] if row else None
+
 
 # Navbar
 @app.route("/navbar")

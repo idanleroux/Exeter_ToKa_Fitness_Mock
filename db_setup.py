@@ -35,8 +35,8 @@ def db_make():
     """)
 
     cursor.execute("""
-        CREATE TABLE IF NOT EXISTS diet
-            code INTEGER UNIQUE NOT NULL,
+        CREATE TABLE IF NOT EXISTS diet (
+            code VARCHAR(8) UNIQUE NOT NULL,
             meals TEXT NOT NULL
         )
     """)
@@ -66,7 +66,12 @@ def db_seed():
         VALUES (?, ?, ?)
     """, ("bob@simple.com", "hello", "free"))
 
-
+    for i in ["HHv", "HHV", "HHO", "HHP", "HRv", "HRV", "HRO", "HRP", "LHv", "LHV", "LHO", "LHP", "LRv", "LRV", "LRO", "LRP"]:
+        cursor.execute("""
+        INSERT OR IGNORE INTO diet
+        (code, meals)
+        VALUES (?, ?)
+        """, (i, "['meal 1', 'meal 2', 'meal 3']"))
 
     conn.commit()
     conn.close()
