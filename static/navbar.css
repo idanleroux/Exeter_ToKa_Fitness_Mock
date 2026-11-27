@@ -8,12 +8,7 @@
     width: 100%;
     box-sizing: border-box;
 }
-/* Logo section */
-.navbar-logo {
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-}
+
 /* Navigation links container */
 .navbar-links {
     display: flex;
@@ -31,6 +26,28 @@
 }
 /* Hover effect */
 .navbar-links a:hover {
+    background-color: white;
+    color: #104760;
+}
+
+/* Navigation logo container */
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; }
+/* Clickable navigation buttons */
+.navbar-logo a {
+    color: white;
+    text-decoration: none;
+    font-style: italic;
+    padding: 10px 15px;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 0;
+    font-size: 20px;
+}
+/* Hover effect */
+.navbar-logo a:hover {
     background-color: white;
     color: #104760;
 }

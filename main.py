@@ -89,29 +89,63 @@ def diets():
         return redirect(url_for("login"))
 
     meal_plan = None
-
     if request.method == "POST":
-
         calorie = request.form.get("calorie")
         protein = request.form.get("protein")
-        diet = request.form.get("diet")
+        diet_type = request.form.get("diet")
+        if not all([calorie, protein, diet_type]):
+            return "Please select all three options", 400
+        code = get_meal_plan(calorie, protein, diet_type)
+        results = get_meals(code)
+        return render_template("L_diets.html", results=results)
 
-        meal_plan = get_meal_plan(
-            calorie,
-            protein,
-            diet
-        )
-
-    return render_template(
-        "L_diets.html",
-        meal_plan=meal_plan
-    )
+    return render_template("login.html")
 
 # Meal plan function
 def get_meal_plan(calorie, protein, diet):
     if calorie == "high":
-        print("")
-    return None
+        if protein == "high":
+            if diet == "vegan":
+                return "HHv"
+            if diet == "vegetarian":
+                return "HHV"
+            if diet == "omnivore":
+                return "HHO"
+            return "HHP"
+        if diet == "vegan":
+            return "HRv"
+        if diet == "vegetarian":
+            return "HRV"
+        if diet == "omnivore":
+            return "HRO"
+        return "HRP"
+    if protein == "high":
+        if diet == "vegan":
+            return "LHv"
+        if diet == "vegetarian":
+            return "LHV"
+        if diet == "omnivore":
+            return "LHO"
+        return "LHP"
+    if diet == "vegan":
+        return "LRv"
+    if diet == "vegetarian":
+        return "LRV"
+    if diet == "omnivore":
+        return "LRO"
+    return "LRP"
+
+def get_meals(code):
+    conn = sqlite3.connect(DATABASE)
+    conn.row_factory = sqlite3.Row
+
+    rtn = conn.execute("""
+                        SELECT meals
+                        FROM diet
+                        WHERE code = ?
+                        """)
+    conn.close()
+    return rtn
 
 # Navbar
 @app.route("/navbar")

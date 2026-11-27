@@ -62,28 +62,32 @@
                 Create your Diet<br>plan
             </button>
         </form>
-        {% if meal_plan %}
+        {% if results %}
             <div class="meal-plan">
-                {{ meal_plan }}
+                {{ results }}
             </div>
         {% endif %}
     </div>
     <script>
-        const options = document.querySelectorAll(".option");
-        options.forEach(button => {
-            button.addEventListener("click", function () {
-                const group = this.dataset.group;
-                // Remove selection from other buttons in same group
-                document.querySelectorAll(
-                ".option[data-group='${group}']").forEach(option => {option.classList.remove("selected");
-                });
-                // Select clicked button
-                this.classList.add("selected");
-                // Store selected value
-                document.getElementById(group).value =
-                    this.dataset.value;
+    const options = document.querySelectorAll(".option");
+    options.forEach(button => {
+        button.addEventListener("click", function () {
+            const group = this.dataset.group;
+
+            // Deselect all buttons in this group
+            document.querySelectorAll(
+                `.option[data-group="${group}"]`
+            ).forEach(option => {
+                option.classList.remove("selected");
             });
+
+            // Select clicked button
+            this.classList.add("selected");
+
+            // Store selected value in hidden input
+            document.getElementById(group).value = this.dataset.value;
         });
+    });
     </script>
 </body>
 </html>

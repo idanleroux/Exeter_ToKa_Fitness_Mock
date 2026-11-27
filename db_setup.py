@@ -34,6 +34,13 @@ def db_make():
         )
     """)
 
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS diet
+            code INTEGER UNIQUE NOT NULL,
+            meals TEXT NOT NULL
+        )
+    """)
+
     conn.commit()
     conn.close()
 
@@ -58,6 +65,8 @@ def db_seed():
         (email, password, account_type)
         VALUES (?, ?, ?)
     """, ("bob@simple.com", "hello", "free"))
+
+
 
     conn.commit()
     conn.close()
