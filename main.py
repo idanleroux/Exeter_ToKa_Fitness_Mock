@@ -118,6 +118,9 @@ def get_meal_plan(calorie, protein, diet):
 def navbar():
     return render_template("navbar.html")
 
+@app.route("/advice")
+def advice():
+    return render_template("advice.html")
 
 # Community
 @app.route("/community")

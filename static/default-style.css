@@ -1,4 +1,31 @@
 body{
     background-color: #DCEAF7;
     font-family: Arial;
+    font-size: 20px;
+}
+
+.base-content {
+    padding-top: 30px;
+    width: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.Login-form {
+    padding-top: 30px;
+    width: 700px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.submit_btn {
+    background-color: #7FAEDB;
+    width: 100px;
+    height: 25px;
 }

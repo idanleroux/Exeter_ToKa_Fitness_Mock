@@ -47,6 +47,18 @@ def db_seed():
         VALUES (?, ?, ?)
     """, ("test@test.com", "1234", "premium"))
 
+    cursor.execute("""
+        INSERT OR IGNORE INTO users
+        (email, password, account_type)
+        VALUES (?, ?, ?)
+    """, ("free@free.com", "1234", "free"))
+
+    cursor.execute("""
+        INSERT OR IGNORE INTO users
+        (email, password, account_type)
+        VALUES (?, ?, ?)
+    """, ("bob@simple.com", "hello", "free"))
+
     conn.commit()
     conn.close()
 

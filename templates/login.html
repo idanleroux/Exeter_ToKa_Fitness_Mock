@@ -10,12 +10,15 @@
 <body>
     {% include 'navbar.html' %}
     <div class="Login-form">
+        <h1 class="h1">Welcome to ToKa Fitness, please Login or Signup!</h1>
         <form method="POST">
+            <p>please fill in your email:</p>
             <input type="text" name="email"
         placeholder="Email" required>
+            <p>please fill in your password:</p>
             <input type="password" name="password"
         placeholder="Password" required>
-            <button type="submit">Login</button>
+            <button class="submit_btn" type="submit">Login</button>
             </form>
     </div>
 </body>
